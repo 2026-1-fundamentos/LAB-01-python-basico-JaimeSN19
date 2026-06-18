@@ -23,5 +23,23 @@ def pregunta_07():
      (7, ['A', 'C', 'E', 'D']),
      (8, ['E', 'D', 'E', 'A', 'B']),
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
-
     """
+    letras_por_valor = {}
+    
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.split("\t")
+            if len(columns) > 1:
+                letra = columns[0]
+                valor = int(columns[1])
+                
+                # Agrupamos las letras en una lista usando el valor numérico como clave
+                if valor not in letras_por_valor:
+                    letras_por_valor[valor] = [letra]
+                else:
+                    letras_por_valor[valor].append(letra)
+                    
+    # Convertimos a lista de tuplas y ordenamos numéricamente por la clave (el valor)
+    resultado = sorted(letras_por_valor.items())
+    
+    return resultado

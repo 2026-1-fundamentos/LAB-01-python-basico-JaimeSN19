@@ -21,6 +21,25 @@ def pregunta_09():
      'ggg': 13,
      'hhh': 16,
      'iii': 18,
-     'jjj': 18}}
-
+     'jjj': 18}
     """
+    conteo_claves = {}
+    
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.split("\t")
+            if len(columns) > 4:
+                # Separamos los pares clave:valor de la columna 5 por comas
+                elementos = columns[4].strip().split(",")
+                
+                for elemento in elementos:
+                    if ":" in elemento:
+                        clave, _ = elemento.split(":")
+                        
+                        # Incrementamos el contador para la clave encontrada
+                        conteo_claves[clave] = conteo_claves.get(clave, 0) + 1
+                        
+    # Ordenamos el diccionario por sus claves de forma alfabética para cumplir con la Rta
+    resultado = {clave: conteo_claves[clave] for clave in sorted(conteo_claves)}
+    
+    return resultado

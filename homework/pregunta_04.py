@@ -24,5 +24,21 @@ def pregunta_04():
      ('10', 2),
      ('11', 2),
      ('12', 3)]
-
     """
+    conteo_meses = {}
+    
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.split("\t")
+            if len(columns) > 2:
+                fecha = columns[2]
+                # Extraemos el mes (MM) usando el split por el guion '-' de la fecha
+                mes = fecha.split("-")[1]
+                
+                # Incrementamos el contador para ese mes
+                conteo_meses[mes] = conteo_meses.get(mes, 0) + 1
+                
+    # Convertimos a lista de tuplas y ordenamos cronológicamente (por el string del mes)
+    resultado = sorted(conteo_meses.items())
+    
+    return resultado
