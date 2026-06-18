@@ -15,31 +15,21 @@ def pregunta_07():
     Rta/
     [(0, ['C']),
      (1, ['E', 'B', 'E']),
-     (2, ['A', 'E']),
-     (3, ['A', 'B', 'D', 'E', 'E', 'D']),
-     (4, ['E', 'B']),
-     (5, ['B', 'C', 'D', 'D', 'E', 'E', 'E']),
-     (6, ['C', 'E', 'A', 'B']),
-     (7, ['A', 'C', 'E', 'D']),
-     (8, ['E', 'D', 'E', 'A', 'B']),
+     ...
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
     """
     letras_por_valor = {}
     
-    with open("data.csv", "r", encoding="utf-8") as file:
-        for line in file:
-            columns = line.split("\t")
+    with open("files/input/data.csv", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columns = linea.strip().split("\t")
             if len(columns) > 1:
                 letra = columns[0]
                 valor = int(columns[1])
                 
-                # Agrupamos las letras en una lista usando el valor numérico como clave
-                if valor not in letras_por_valor:
-                    letras_por_valor[valor] = [letra]
-                else:
+                if valor in letras_por_valor:
                     letras_por_valor[valor].append(letra)
+                else:
+                    letras_por_valor[valor] = [letra]
                     
-    # Convertimos a lista de tuplas y ordenamos numéricamente por la clave (el valor)
-    resultado = sorted(letras_por_valor.items())
-    
-    return resultado
+    return sorted(letras_por_valor.items())

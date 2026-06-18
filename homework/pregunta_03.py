@@ -16,16 +16,16 @@ def pregunta_03():
     """
     sumas = {}
     
-    with open("data.csv", "r", encoding="utf-8") as file:
-        for line in file:
-            columns = line.split("\t")
+    with open("files/input/data.csv", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columns = linea.strip().split("\t")
             if len(columns) > 1:
                 letra = columns[0]
                 valor = int(columns[1])
-                # Acumulamos el valor en la letra correspondiente
-                sumas[letra] = sumas.get(letra, 0) + valor
                 
-    # Convertimos a lista de tuplas y ordenamos alfabéticamente por la clave (letra)
-    resultado = sorted(sumas.items())
-    
-    return resultado
+                if letra in sumas:
+                    sumas[letra] += valor
+                else:
+                    sumas[letra] = valor
+                    
+    return sorted(sumas.items())

@@ -25,21 +25,21 @@ def pregunta_09():
     """
     conteo_claves = {}
     
-    with open("data.csv", "r", encoding="utf-8") as file:
-        for line in file:
-            columns = line.split("\t")
+    with open("files/input/data.csv", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columns = linea.strip().split("\t")
             if len(columns) > 4:
                 # Separamos los pares clave:valor de la columna 5 por comas
-                elementos = columns[4].strip().split(",")
+                elementos = columns[4].split(",")
                 
                 for elemento in elementos:
                     if ":" in elemento:
-                        clave, _ = elemento.split(":")
+                        clave = elemento.split(":")[0]
                         
-                        # Incrementamos el contador para la clave encontrada
-                        conteo_claves[clave] = conteo_claves.get(clave, 0) + 1
-                        
-    # Ordenamos el diccionario por sus claves de forma alfabética para cumplir con la Rta
-    resultado = {clave: conteo_claves[clave] for clave in sorted(conteo_claves)}
-    
-    return resultado
+                        if clave in conteo_claves:
+                            conteo_claves[clave] += 1
+                        else:
+                            conteo_claves[clave] = 1
+                            
+    # Retornamos el diccionario ordenado alfabéticamente por sus claves
+    return {clave: conteo_claves[clave] for clave in sorted(conteo_claves)}

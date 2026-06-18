@@ -8,28 +8,26 @@ utilizar pandas, numpy o scipy.
 
 def pregunta_05():
     """
-    Retorne una lista de tuplas con el valor maximo y minimo de la columna 2
-    por cada letra de la columa 1.
+    Retorne una lista de tuplas con el valor máximo y mínimo de la columna 2
+    por cada letra de la columna 1.
 
     Rta/
     [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
     """
     valores_por_letra = {}
     
-    with open("data.csv", "r", encoding="utf-8") as file:
-        for line in file:
-            columns = line.split("\t")
+    with open("files/input/data.csv", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columns = linea.strip().split("\t")
             if len(columns) > 1:
                 letra = columns[0]
                 valor = int(columns[1])
                 
-                # Si la letra no está en el diccionario, inicializamos la lista con el valor
-                if letra not in valores_por_letra:
-                    valores_por_letra[letra] = [valor]
-                else:
+                if letra in valores_por_letra:
                     valores_por_letra[letra].append(valor)
+                else:
+                    valores_por_letra[letra] = [valor]
                     
-    # Construimos las tuplas con (letra, maximo, minimo) y ordenamos alfabéticamente
     resultado = [
         (letra, max(valores), min(valores)) 
         for letra, valores in sorted(valores_por_letra.items())
